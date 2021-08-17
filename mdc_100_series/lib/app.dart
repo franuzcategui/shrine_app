@@ -17,6 +17,7 @@ import 'package:flutter/material.dart';
 import 'home.dart';
 import 'login.dart';
 import 'colors.dart';
+import 'supplemental/cut_corners_border.dart';
 
 // TODO: Convert ShrineApp to stateful widget (104)
 class ShrineApp extends StatelessWidget {
@@ -66,7 +67,13 @@ ThemeData _buildShrineTheme() {
       selectionColor: kShrinePink100,
     ),
     inputDecorationTheme: InputDecorationTheme(
-      border: OutlineInputBorder(),
+      focusedBorder: CutCornersBorder(
+        borderSide: BorderSide(
+          width: 2.0,
+          color: kShrineBrown900,
+        )
+      ),
+      border: CutCornersBorder(),
     ),
     appBarTheme: base.appBarTheme.copyWith(
       backwardsCompatibility: false,
@@ -98,6 +105,9 @@ TextTheme _buildShrineTextTheme(TextTheme base) {
         bodyColor: kShrineBrown900,
       );
 }
+
+
+
 
 // TODO: Build a Shrine Theme (103)
 // TODO: Build a Shrine Text Theme (103)
