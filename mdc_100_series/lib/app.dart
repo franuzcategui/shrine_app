@@ -20,7 +20,6 @@ import 'colors.dart';
 
 // TODO: Convert ShrineApp to stateful widget (104)
 class ShrineApp extends StatelessWidget {
-  
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -61,6 +60,14 @@ ThemeData _buildShrineTheme() {
       secondary: kShrineBrown900,
       error: kShrineErrorRed,
     ),
+    textTheme: _buildShrineTextTheme(base.textTheme),
+    primaryTextTheme: _buildShrineTextTheme(base.primaryTextTheme),
+    textSelectionTheme: TextSelectionThemeData(
+      selectionColor: kShrinePink100,
+    ),
+    inputDecorationTheme: InputDecorationTheme(
+      border: OutlineInputBorder(),
+    ),
     appBarTheme: base.appBarTheme.copyWith(
       backwardsCompatibility: false,
     ),
@@ -68,26 +75,28 @@ ThemeData _buildShrineTheme() {
 }
 
 TextTheme _buildShrineTextTheme(TextTheme base) {
-  return base.copyWith(
-    headline5: base.headline5!.copyWith(
-      fontSize: 18.0,
-    ),
-    headline6: base.headline6!.copyWith(
-      fontSize: 18.0,
-    ),
-    caption: base.caption!.copyWith(
-      fontWeight: FontWeight.w400,
-      fontSize: 14.0,
-    ),
-    bodyText1: base.bodyText1!.copyWith(
-      fontWeight: FontWeight.w500,
-      fontSize: 16.0,
-    ),
-  ).apply(
-    fontFamily: 'Rubik',
-    displayColor: kShrineBrown900,
-    bodyColor: kShrineBrown900,
-  );
+  return base
+      .copyWith(
+        headline5: base.headline5!.copyWith(
+          fontSize: 18.0,
+        ),
+        headline6: base.headline6!.copyWith(
+          fontSize: 18.0,
+        ),
+        caption: base.caption!.copyWith(
+          fontWeight: FontWeight.w400,
+          fontSize: 14.0,
+        ),
+        bodyText1: base.bodyText1!.copyWith(
+          fontWeight: FontWeight.w500,
+          fontSize: 16.0,
+        ),
+      )
+      .apply(
+        fontFamily: 'Rubik',
+        displayColor: kShrineBrown900,
+        bodyColor: kShrineBrown900,
+      );
 }
 
 // TODO: Build a Shrine Theme (103)

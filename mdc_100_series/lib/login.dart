@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'package:Shrine/colors.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatefulWidget {
@@ -48,16 +49,34 @@ class _LoginPageState extends State<LoginPage> {
             TextField(
               controller: _usernameController,
               decoration: InputDecoration(
-                filled: true,
                 labelText: 'Username',
+                labelStyle: TextStyle(
+                  color: Theme.of(context).colorScheme.secondary,
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(
+                    width: 2.0,
+                    color: kShrineBrown900,
+                  ),
+                ),
+                border: OutlineInputBorder(),
               ),
             ),
             SizedBox(height: 12.0),
             TextField(
               controller: _passwordController,
               decoration: InputDecoration(
-                filled: true,
                 labelText: 'Password',
+                labelStyle: TextStyle(
+                  color: Theme.of(context).colorScheme.secondary,
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(
+                    width: 2.0,
+                    color: kShrineBrown900,
+                  ),
+                ),
+                border: OutlineInputBorder(),
               ),
               obscureText: true,
             ),
