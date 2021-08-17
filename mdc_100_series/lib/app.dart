@@ -32,6 +32,7 @@ class ShrineApp extends StatelessWidget {
       // TODO: Change backLayer field value to CategoryMenuPage (104)
       initialRoute: '/login',
       onGenerateRoute: _getRoute,
+      theme: _kShrineTheme,
       // TODO: Add a theme (103)
     );
   }
@@ -47,6 +48,23 @@ class ShrineApp extends StatelessWidget {
       fullscreenDialog: true,
     );
   }
+}
+
+final ThemeData _kShrineTheme = _buildShrineTheme();
+
+ThemeData _buildShrineTheme() {
+  final ThemeData base = ThemeData.light();
+  return base.copyWith(
+    colorScheme: base.colorScheme.copyWith(
+      primary: kShrinePink100,
+      onPrimary: kShrineBrown900,
+      secondary: kShrineBrown900,
+      error: kShrineErrorRed,
+    ),
+    appBarTheme: base.appBarTheme.copyWith(
+      backwardsCompatibility: false,
+    ),
+  );
 }
 
 // TODO: Build a Shrine Theme (103)
