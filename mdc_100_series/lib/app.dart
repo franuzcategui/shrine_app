@@ -56,27 +56,27 @@ ThemeData _buildShrineTheme() {
   final ThemeData base = ThemeData.light();
   return base.copyWith(
     colorScheme: base.colorScheme.copyWith(
-      primary: kShrinePink100,
-      onPrimary: kShrineBrown900,
-      secondary: kShrineBrown900,
+      primary: kShrinePurple,
+      secondary: kShrinePurple,
       error: kShrineErrorRed,
     ),
+    appBarTheme: base.appBarTheme.copyWith(
+      backwardsCompatibility: false,
+    ),
+    scaffoldBackgroundColor: kShrineSurfaceWhite,
     textTheme: _buildShrineTextTheme(base.textTheme),
     primaryTextTheme: _buildShrineTextTheme(base.primaryTextTheme),
     textSelectionTheme: TextSelectionThemeData(
-      selectionColor: kShrinePink100,
+      selectionColor: kShrinePurple,
     ),
     inputDecorationTheme: InputDecorationTheme(
       focusedBorder: CutCornersBorder(
         borderSide: BorderSide(
           width: 2.0,
-          color: kShrineBrown900,
-        )
+          color: kShrinePurple,
+        ),
       ),
       border: CutCornersBorder(),
-    ),
-    appBarTheme: base.appBarTheme.copyWith(
-      backwardsCompatibility: false,
     ),
   );
 }
