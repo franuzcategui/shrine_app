@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 
@@ -119,9 +121,12 @@ class _BackdropState extends State<Backdrop>
 }
 
 class _FrontLayer extends StatelessWidget {
-  const _FrontLayer({Key? key, required this.child}) : super(key: key);
+  const _FrontLayer({Key? key,
+    this.onTap,
+    required this.child}) : super(key: key);
 
   final Widget child;
+  final VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context) {
