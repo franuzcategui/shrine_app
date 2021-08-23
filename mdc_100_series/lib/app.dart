@@ -19,18 +19,36 @@ import 'home.dart';
 import 'login.dart';
 import 'colors.dart';
 import 'model/product.dart';
+import 'category_menu_page.dart';
 import 'supplemental/cut_corners_border.dart';
 
 // TODO: Convert ShrineApp to stateful widget (104)
-class ShrineApp extends StatelessWidget {
+class ShrineApp extends StatefulWidget {
+  @override
+  _ShrineAppState createState() => _ShrineAppState();
+}
+
+class _ShrineAppState extends State<ShrineApp> {
+  Category _currentCategory = Category.all;
+
+  void _onCategoryTap(Category category) {
+    setState(() {
+      _currentCategory = category;
+    });
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Shrine',
       // TODO: Change home: to a Backdrop with a HomePage frontLayer (104)
       home: Backdrop(
-        frontLayer: HomePage(),
-        backLayer: Container(color: kShrinePink100),
+        frontLayer: HomePage(category: _currentCategory),
+        backLayer: CategoryMenuPage(
+          currentCategory: _currentCategory,
+          onCategoryTap:  _onCategoryTap,
+        ),
         frontTitle: Text('SHRINE'),
         backTitle: Text('MENU'),
         currentCategory: Category.all,
@@ -65,8 +83,8 @@ ThemeData _buildShrineTheme() {
   final ThemeData base = ThemeData.light();
   return base.copyWith(
     colorScheme: base.colorScheme.copyWith(
-      primary: kShrinePurple,
-      secondary: kShrinePurple,
+      primary: kShrinePink100,
+      secondary: kShrinePink100,
       error: kShrineErrorRed,
     ),
     appBarTheme: base.appBarTheme.copyWith(
@@ -76,13 +94,13 @@ ThemeData _buildShrineTheme() {
     textTheme: _buildShrineTextTheme(base.textTheme),
     primaryTextTheme: _buildShrineTextTheme(base.primaryTextTheme),
     textSelectionTheme: TextSelectionThemeData(
-      selectionColor: kShrinePurple,
+      selectionColor: kShrinePink100,
     ),
     inputDecorationTheme: InputDecorationTheme(
       focusedBorder: CutCornersBorder(
         borderSide: BorderSide(
           width: 2.0,
-          color: kShrinePurple,
+          color: kShrinePink100,
         ),
       ),
       border: CutCornersBorder(),
