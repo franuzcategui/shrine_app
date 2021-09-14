@@ -87,7 +87,9 @@ class _BackdropState extends State<Backdrop>
           excluding: _frontLayerVisible,
         ),
         PositionedTransition(
-            rect: layerAnimation, child: _FrontLayer(child: widget.frontLayer)),
+            rect: layerAnimation, child: _FrontLayer(
+            onTap: _toggleBackdropLayerVisibility,
+            child: widget.frontLayer)),
       ],
     );
   }
@@ -138,9 +140,17 @@ class _FrontLayer extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
-          Expanded(
-            child: child,
-          )
+          GestureDetector(
+            behavior: HitTestBehavior.opaque,
+            onTap: onTap,
+            child: Container(
+              height: 40.0,
+              alignment: AlignmentDirectional.centerStart,
+            ),
+      ),
+            Expanded(
+              child: child,
+            ),
         ],
       ),
     );
