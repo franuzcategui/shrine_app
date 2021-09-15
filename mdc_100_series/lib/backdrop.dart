@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 
 import 'model/product.dart';
+import 'login.dart';
 
 const double _kFlingVelocity = 2.0;
 
@@ -100,17 +101,39 @@ class _BackdropState extends State<Backdrop>
       brightness: Brightness.light,
       elevation: 0.0,
       titleSpacing: 0.0,
-      leading: IconButton(
-          icon: Icon(Icons.menu),
-      onPressed: _toggleBackdropLayerVisibility,),
-      title: Text('SHRINE'),
+      title: _BackdropTitle(
+        listenable: _animationController.view,
+        onPress: _toggleBackdropLayerVisibility,
+        frontTitle: widget.frontTitle,
+        backTitle: widget.backTitle,
+      ),
       actions: <Widget>[
         IconButton(
           icon: Icon(
             Icons.search,
-            semanticLabel: 'search',
+            semanticLabel: 'login',
           ),
-          onPressed: () {},
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (BuildContext context) => LoginPage()),
+            );
+          },
+        ),
+        IconButton(
+          icon: const Icon(
+            Icons.tune,
+            semanticLabel: 'login', // New code
+          ),
+          onPressed: () {
+            // TODO: Add open login (104)
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (BuildContext context) => LoginPage()),
+            );
+          },
         ),
       ],
       backwardsCompatibility: false,
@@ -153,6 +176,87 @@ class _FrontLayer extends StatelessWidget {
             ),
         ],
       ),
+    );
+  }
+}
+
+class _BackdropTitle extends AnimatedWidget {
+  final void Function() onPress;
+  final Widget frontTitle;
+  final Widget backTitle;
+
+  const _BackdropTitle({
+    Key? key,
+    required Animation<double> listenable,
+    required this.onPress,
+    required this.frontTitle,
+    required this.backTitle,
+  })  :  _listenable = listenable,
+        super(key: key, listenable: listenable);
+
+  final Animation<double> _listenable;
+
+  Widget build(BuildContext context) {
+    final Animation<double> animation = _listenable;
+
+    return DefaultTextStyle(
+      style: Theme.of(context).textTheme.headline6!,
+      softWrap: false,
+      overflow: TextOverflow.ellipsis,
+      child: Row(children: <Widget>[
+        // branded icon
+        SizedBox(
+          width: 72.0,
+          child: IconButton(
+            padding: const EdgeInsets.only(right: 8.0),
+            onPressed: this.onPress,
+            icon: Stack(children: <Widget>[
+              Opacity(
+                opacity: animation.value,
+                child: const ImageIcon(AssetImage('assets/slanted_menu.png')),
+              ),
+              FractionalTranslation(
+                translation: Tween<Offset>(
+                  begin: Offset.zero,
+                  end: const Offset(1.0, 0.0),
+                ).evaluate(animation),
+                child: const ImageIcon(AssetImage('assets/diamond.png')),
+              )]),
+          ),
+        ),
+        // Here, we do a custom cross fade between backTitle and frontTitle.
+        // This makes a smooth animation between the two texts.
+        Stack(
+          children: <Widget>[
+            Opacity(
+              opacity: CurvedAnimation(
+                parent: ReverseAnimation(animation),
+                curve: const Interval(0.5, 1.0),
+              ).value,
+              child: FractionalTranslation(
+                translation: Tween<Offset>(
+                  begin: Offset.zero,
+                  end: const Offset(0.5, 0.0),
+                ).evaluate(animation),
+                child: backTitle,
+              ),
+            ),
+            Opacity(
+              opacity: CurvedAnimation(
+                parent: animation,
+                curve: const Interval(0.5, 1.0),
+              ).value,
+              child: FractionalTranslation(
+                translation: Tween<Offset>(
+                  begin: const Offset(-0.25, 0.0),
+                  end: Offset.zero,
+                ).evaluate(animation),
+                child: frontTitle,
+              ),
+            ),
+          ],
+        )
+      ]),
     );
   }
 }
